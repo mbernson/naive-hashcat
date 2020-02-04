@@ -5,3 +5,5 @@ dicts
 handshakes
 hccapx
 pwnagotchi
+*.hccapx
+outfile.txt

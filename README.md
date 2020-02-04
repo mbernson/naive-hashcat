@@ -102,24 +102,31 @@ Hashcat ships with OpenCL and runs on available GPU hardware automatically when 
 Below is a list of hash-type codes supported by hashcat. If you don't know the type of hash you have, you can use [`hashid`](https://github.com/psypanda/hashID) to try and identify it. Include the appropriate hash-type using the `HASH_TYPE` environment variable.
 
 ```
-    #   | Name                                             | Category
+      # | Name                                             | Category
   ======+==================================================+======================================
     900 | MD4                                              | Raw Hash
       0 | MD5                                              | Raw Hash
    5100 | Half MD5                                         | Raw Hash
     100 | SHA1                                             | Raw Hash
-   1300 | SHA-224                                          | Raw Hash
-   1400 | SHA-256                                          | Raw Hash
-  10800 | SHA-384                                          | Raw Hash
-   1700 | SHA-512                                          | Raw Hash
-   5000 | SHA-3 (Keccak)                                   | Raw Hash
+   1300 | SHA2-224                                         | Raw Hash
+   1400 | SHA2-256                                         | Raw Hash
+  10800 | SHA2-384                                         | Raw Hash
+   1700 | SHA2-512                                         | Raw Hash
+  17300 | SHA3-224                                         | Raw Hash
+  17400 | SHA3-256                                         | Raw Hash
+  17500 | SHA3-384                                         | Raw Hash
+  17600 | SHA3-512                                         | Raw Hash
+  17700 | Keccak-224                                       | Raw Hash
+  17800 | Keccak-256                                       | Raw Hash
+  17900 | Keccak-384                                       | Raw Hash
+  18000 | Keccak-512                                       | Raw Hash
     600 | BLAKE2b-512                                      | Raw Hash
   10100 | SipHash                                          | Raw Hash
    6000 | RIPEMD-160                                       | Raw Hash
    6100 | Whirlpool                                        | Raw Hash
    6900 | GOST R 34.11-94                                  | Raw Hash
-  11700 | GOST R 34.11-2012 (Streebog) 256-bit             | Raw Hash
-  11800 | GOST R 34.11-2012 (Streebog) 512-bit             | Raw Hash
+  11700 | GOST R 34.11-2012 (Streebog) 256-bit, big-endian | Raw Hash
+  11800 | GOST R 34.11-2012 (Streebog) 512-bit, big-endian | Raw Hash
      10 | md5($pass.$salt)                                 | Raw Hash, Salted and/or Iterated
      20 | md5($salt.$pass)                                 | Raw Hash, Salted and/or Iterated
      30 | md5(utf16le($pass).$salt)                        | Raw Hash, Salted and/or Iterated
@@ -157,6 +164,10 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
    1460 | HMAC-SHA256 (key = $salt)                        | Raw Hash, Authenticated
    1750 | HMAC-SHA512 (key = $pass)                        | Raw Hash, Authenticated
    1760 | HMAC-SHA512 (key = $salt)                        | Raw Hash, Authenticated
+  11750 | HMAC-Streebog-256 (key = $pass), big-endian      | Raw Hash, Authenticated
+  11760 | HMAC-Streebog-256 (key = $salt), big-endian      | Raw Hash, Authenticated
+  11850 | HMAC-Streebog-512 (key = $pass), big-endian      | Raw Hash, Authenticated
+  11860 | HMAC-Streebog-512 (key = $salt), big-endian      | Raw Hash, Authenticated
   14000 | DES (PT = $salt, key = $pass)                    | Raw Cipher, Known-Plaintext attack
   14100 | 3DES (PT = $salt, key = $pass)                   | Raw Cipher, Known-Plaintext attack
   14900 | Skip32 (PT = $salt, key = $pass)                 | Raw Cipher, Known-Plaintext attack
@@ -168,7 +179,10 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
   10900 | PBKDF2-HMAC-SHA256                               | Generic KDF
   12100 | PBKDF2-HMAC-SHA512                               | Generic KDF
      23 | Skype                                            | Network Protocols
-   2500 | WPA/WPA2                                         | Network Protocols
+   2500 | WPA-EAPOL-PBKDF2                                 | Network Protocols
+   2501 | WPA-EAPOL-PMK                                    | Network Protocols
+  16800 | WPA-PMKID-PBKDF2                                 | Network Protocols
+  16801 | WPA-PMKID-PMK                                    | Network Protocols
    4800 | iSCSI CHAP authentication, MD5(CHAP)             | Network Protocols
    5300 | IKE-PSK MD5                                      | Network Protocols
    5400 | IKE-PSK SHA1                                     | Network Protocols
@@ -183,6 +197,9 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
   11200 | MySQL CRAM (SHA1)                                | Network Protocols
   11400 | SIP digest authentication (MD5)                  | Network Protocols
   13100 | Kerberos 5 TGS-REP etype 23                      | Network Protocols
+  16100 | TACACS+                                          | Network Protocols
+  16500 | JWT (JSON Web Token)                             | Network Protocols
+  18200 | Kerberos 5 AS-REP etype 23                       | Network Protocols
     121 | SMF (Simple Machines Forum) > v1.1               | Forums, CMS, E-Commerce, Frameworks
     400 | phpBB3 (MD5)                                     | Forums, CMS, E-Commerce, Frameworks
    2611 | vBulletin < v3.8.5                               | Forums, CMS, E-Commerce, Frameworks
@@ -200,6 +217,7 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
   11000 | PrestaShop                                       | Forums, CMS, E-Commerce, Frameworks
     124 | Django (SHA-1)                                   | Forums, CMS, E-Commerce, Frameworks
   10000 | Django (PBKDF2-SHA256)                           | Forums, CMS, E-Commerce, Frameworks
+  16000 | Tripcode                                         | Forums, CMS, E-Commerce, Frameworks
    3711 | MediaWiki B type                                 | Forums, CMS, E-Commerce, Frameworks
   13900 | OpenCart                                         | Forums, CMS, E-Commerce, Frameworks
    4521 | Redmine                                          | Forums, CMS, E-Commerce, Frameworks
@@ -224,13 +242,15 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
     111 | nsldaps, SSHA-1(Base64), Netscape LDAP SSHA      | HTTP, SMTP, LDAP Server
    1411 | SSHA-256(Base64), LDAP {SSHA256}                 | HTTP, SMTP, LDAP Server
    1711 | SSHA-512(Base64), LDAP {SSHA512}                 | HTTP, SMTP, LDAP Server
+  16400 | CRAM-MD5 Dovecot                                 | HTTP, SMTP, LDAP Server
   15000 | FileZilla Server >= 0.9.55                       | FTP Server
   11500 | CRC32                                            | Checksums
    3000 | LM                                               | Operating Systems
    1000 | NTLM                                             | Operating Systems
    1100 | Domain Cached Credentials (DCC), MS Cache        | Operating Systems
    2100 | Domain Cached Credentials 2 (DCC2), MS Cache 2   | Operating Systems
-  15300 | DPAPI masterkey file v1 and v2                   | Operating Systems
+  15300 | DPAPI masterkey file v1                          | Operating Systems
+  15900 | DPAPI masterkey file v2                          | Operating Systems
   12800 | MS-AzureSync  PBKDF2-HMAC-SHA256                 | Operating Systems
    1500 | descrypt, DES (Unix), Traditional DES            | Operating Systems
   12400 | BSDi Crypt, Extended DES                         | Operating Systems
@@ -238,9 +258,9 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
    3200 | bcrypt $2*$, Blowfish (Unix)                     | Operating Systems
    7400 | sha256crypt $5$, SHA256 (Unix)                   | Operating Systems
    1800 | sha512crypt $6$, SHA512 (Unix)                   | Operating Systems
-    122 | OSX v10.4, OSX v10.5, OSX v10.6                  | Operating Systems
-   1722 | OSX v10.7                                        | Operating Systems
-   7100 | OSX v10.8+ (PBKDF2-SHA512)                       | Operating Systems
+    122 | macOS v10.4, MacOS v10.5, MacOS v10.6            | Operating Systems
+   1722 | macOS v10.7                                      | Operating Systems
+   7100 | macOS v10.8+ (PBKDF2-SHA512)                     | Operating Systems
    6300 | AIX {smd5}                                       | Operating Systems
    6700 | AIX {ssha1}                                      | Operating Systems
    6400 | AIX {ssha256}                                    | Operating Systems
@@ -263,7 +283,9 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
    9900 | Radmin2                                          | Operating Systems
     125 | ArubaOS                                          | Operating Systems
    7700 | SAP CODVN B (BCODE)                              | Enterprise Application Software (EAS)
+   7701 | SAP CODVN B (BCODE) via RFC_READ_TABLE           | Enterprise Application Software (EAS)
    7800 | SAP CODVN F/G (PASSCODE)                         | Enterprise Application Software (EAS)
+   7801 | SAP CODVN F/G (PASSCODE) via RFC_READ_TABLE      | Enterprise Application Software (EAS)
   10300 | SAP CODVN H (PWDSALTEDHASH) iSSHA-1              | Enterprise Application Software (EAS)
    8600 | Lotus Notes/Domino 5                             | Enterprise Application Software (EAS)
    8700 | Lotus Notes/Domino 6                             | Enterprise Application Software (EAS)
@@ -303,17 +325,28 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
      X  | 4 = PBKDF2-HMAC-RIPEMD160 + boot-mode            | Full-Disk Encryption (FDE)
      X  | 5 = PBKDF2-HMAC-SHA256                           | Full-Disk Encryption (FDE)
      X  | 6 = PBKDF2-HMAC-SHA256 + boot-mode               | Full-Disk Encryption (FDE)
+     X  | 7 = PBKDF2-HMAC-Streebog-512                     | Full-Disk Encryption (FDE)
       Y | 1 = XTS  512 bit pure AES                        | Full-Disk Encryption (FDE)
       Y | 1 = XTS  512 bit pure Serpent                    | Full-Disk Encryption (FDE)
       Y | 1 = XTS  512 bit pure Twofish                    | Full-Disk Encryption (FDE)
+      Y | 1 = XTS  512 bit pure Camellia                   | Full-Disk Encryption (FDE)
+      Y | 1 = XTS  512 bit pure Kuznyechik                 | Full-Disk Encryption (FDE)
       Y | 2 = XTS 1024 bit pure AES                        | Full-Disk Encryption (FDE)
       Y | 2 = XTS 1024 bit pure Serpent                    | Full-Disk Encryption (FDE)
       Y | 2 = XTS 1024 bit pure Twofish                    | Full-Disk Encryption (FDE)
+      Y | 2 = XTS 1024 bit pure Camellia                   | Full-Disk Encryption (FDE)
+      Y | 2 = XTS 1024 bit pure Kuznyechik                 | Full-Disk Encryption (FDE)
       Y | 2 = XTS 1024 bit cascaded AES-Twofish            | Full-Disk Encryption (FDE)
+      Y | 2 = XTS 1024 bit cascaded Camellia-Kuznyechik    | Full-Disk Encryption (FDE)
+      Y | 2 = XTS 1024 bit cascaded Camellia-Serpent       | Full-Disk Encryption (FDE)
+      Y | 2 = XTS 1024 bit cascaded Kuznyechik-AES         | Full-Disk Encryption (FDE)
+      Y | 2 = XTS 1024 bit cascaded Kuznyechik-Twofish     | Full-Disk Encryption (FDE)
       Y | 2 = XTS 1024 bit cascaded Serpent-AES            | Full-Disk Encryption (FDE)
       Y | 2 = XTS 1024 bit cascaded Twofish-Serpent        | Full-Disk Encryption (FDE)
       Y | 3 = XTS 1536 bit all                             | Full-Disk Encryption (FDE)
   14600 | LUKS                                             | Full-Disk Encryption (FDE)
+  16700 | FileVault 2                                      | Full-Disk Encryption (FDE)
+  18300 | Apple File System (APFS)                         | Full-Disk Encryption (FDE)
    9700 | MS Office <= 2003 $0/$1, MD5 + RC4               | Documents
    9710 | MS Office <= 2003 $0/$1, MD5 + RC4, collider #1  | Documents
    9720 | MS Office <= 2003 $0/$1, MD5 + RC4, collider #2  | Documents
@@ -329,6 +362,7 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
   10500 | PDF 1.4 - 1.6 (Acrobat 5 - 8)                    | Documents
   10600 | PDF 1.7 Level 3 (Acrobat 9)                      | Documents
   10700 | PDF 1.7 Level 8 (Acrobat 10 - 11)                | Documents
+  16200 | Apple Secure Notes                               | Documents
    9000 | Password Safe v2                                 | Password Managers
    5200 | Password Safe v3                                 | Password Managers
    6800 | LastPass + LastPass sniffed                      | Password Managers
@@ -337,9 +371,13 @@ Below is a list of hash-type codes supported by hashcat. If you don't know the t
   11300 | Bitcoin/Litecoin wallet.dat                      | Password Managers
   12700 | Blockchain, My Wallet                            | Password Managers
   15200 | Blockchain, My Wallet, V2                        | Password Managers
+  16600 | Electrum Wallet (Salt-Type 1-3)                  | Password Managers
   13400 | KeePass 1 (AES/Twofish) and KeePass 2 (AES)      | Password Managers
   15500 | JKS Java Key Store Private Keys (SHA1)           | Password Managers
   15600 | Ethereum Wallet, PBKDF2-HMAC-SHA256              | Password Managers
   15700 | Ethereum Wallet, SCRYPT                          | Password Managers
+  16300 | Ethereum Pre-Sale Wallet, PBKDF2-HMAC-SHA256     | Password Managers
+  16900 | Ansible Vault                                    | Password Managers
+  18100 | TOTP (HMAC-SHA1)                                 | One-Time Passwords
   99999 | Plaintext                                        | Plaintext
 ``` 
