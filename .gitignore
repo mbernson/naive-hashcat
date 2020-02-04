@@ -1,3 +1,7 @@
 dicts/rockyou.txt
-hashcat-src
+# hashcat-src
 hashcat.pot
+dicts
+handshakes
+hccapx
+pwnagotchi
