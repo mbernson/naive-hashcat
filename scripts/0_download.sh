@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Downloads all handshakes (pcap files) from these pwnagotchi's to the 'handshakes' folder
-# pwnagotchis=("172.20.10.7" "172.20.10.6")
-pwnagotchis=("172.20.10.6")
+pwnagotchis=("10.0.0.2")
 
 for ip in $pwnagotchis; do
   echo "Connecting to $ip..."

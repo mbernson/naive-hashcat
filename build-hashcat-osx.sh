@@ -10,3 +10,8 @@ git clone https://github.com/KhronosGroup/OpenCL-Headers.git hashcat-src/deps/Op
 # build
 cd hashcat-src
 make
+
+cd ..
+
+cd hashcat-utils/src
+make

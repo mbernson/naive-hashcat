@@ -7,7 +7,7 @@ __DISCLAIMER: This software is for educational purposes only. This software shou
 ## Getting started
 
 ```bash
-git clone https://github.com/brannondorsey/naive-hashcat
+git clone --recursive https://github.com/mbernson/naive-hashcat
 cd naive-hashcat
 
 # if you are on MacOS/OSX, run this. If on linux or windows, skip...

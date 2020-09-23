@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Converting handshakes..."
-cap2hccapx=hashcat-utils/bin/cap2hccapx
+cap2hccapx=hashcat-utils/src/cap2hccapx.bin
 for fullfile in handshakes/*.pcap; do
   filename=$(basename -- "$fullfile")
   extension="${filename##*.}"
@@ -10,3 +10,7 @@ for fullfile in handshakes/*.pcap; do
 done
 echo "Removing incomplete handshakes"
 find ./hccapx -name "*.hccapx" -type 'f' -size 0 -delete
+
+# Combine hccapx files into one
+# echo "Creating master hccapx file..."
+# cat hccapx/*.hccapx > ./master.hccapx
