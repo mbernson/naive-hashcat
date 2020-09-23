@@ -6,11 +6,13 @@ __DISCLAIMER: This software is for educational purposes only. This software shou
 
 ## Getting started
 
+If you are using macOS, please install Xcode first.
+
 ```bash
-git clone --recursive https://github.com/mbernson/naive-hashcat
+git clone --recursive git@github.com:mbernson/naive-hashcat.git
 cd naive-hashcat
 
-# if you are on MacOS/OSX, run this. If on linux or windows, skip...
+# if you are on macOS, run this. If on linux or windows, skip...
 ./build-hashcat-osx.sh
 
 # download the 134MB rockyou dictionary file
